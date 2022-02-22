@@ -46,6 +46,7 @@ def getseason(region):
 			seasonid = i['id']
 	return seasonid
 
+#비경쟁전 솔로 전적
 def nonranksolo(msg):
 	msg = msg.split()
 	namebycase = getname(msg[0])
@@ -57,7 +58,7 @@ def nonranksolo(msg):
 	statdata = statsource['data']['attributes']['gameModeStats']['solo']
 	print(statdata)
 
-
+#경쟁전 솔로 전적
 def ranksolo(msg):
 	url = f'https://api.pubg.com/shards/{region}/players/{playerid}/seasons/{seasonid}/ranked'
 	statsource = requests.get(url, headers=header).json()
