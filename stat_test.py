@@ -56,7 +56,7 @@ def nonranksolo(msg):
 	url = f'https://api.pubg.com/shards/{region}/players/{playerid}/seasons/{seasonid}'
 	statsource = requests.get(url, headers=header).json()
 	statdata = statsource['data']['attributes']['gameModeStats']['solo']
-	print(statdata)
+	
 
 #경쟁전 솔로 전적
 def ranksolo(msg):
