@@ -30,8 +30,14 @@ def getname(inputname):
 	name = nameraw.strip()
 	return name
 
+def getregion(inputtext):
+	region = inputtext[1]
+	return region
+
 #가져온 이름으로 API request
-def getid(name,region):
+def getid(inputtext):
+	region = getregion(inputtext)
+	name = getname(inputtext[0])
 	url = f'https://api.pubg.com/shards/{region}/players?filter[playerNames]={name}'
 	idjson = requests.get(url, headers=header).json() #headers 빠지면 작동 안함
 	playerid = idjson['data'][0]['id']
@@ -51,8 +57,8 @@ def nonranksolo(msg):
 	msg = msg.split()
 	namebycase = getname(msg[0])
 	seasonid = getseason(msg[1])	
-	playerid = getid(msg[0], msg[1])
-	region = msg[1]
+	playerid = getid(msg)
+	region = getregion(msg)
 	url = f'https://api.pubg.com/shards/{region}/players/{playerid}/seasons/{seasonid}'
 	statsource = requests.get(url, headers=header).json()
 	statdata = statsource['data']['attributes']['gameModeStats']['solo']
@@ -66,6 +72,6 @@ def ranksolo(msg):
 	modedftest = json_normalize(statsource['data']['attributes']['rankedGameModeStats'][modelist[0]])
 	print(modedftest)
 
-nonranksolo('Bodeum_ kakao')
+nonranksolo('bodeum_ kakao')
 
 # getstat('kakao', 'account.178fea2929b449538f510e51aedbb65b', 1, 'division.bro.official.pc-2018-16')
